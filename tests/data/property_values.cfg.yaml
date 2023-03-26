@@ -1,0 +1,36 @@
+# example configuration
+
+logging_config: |
+  version: 1
+  disable_existing_loggers: no
+  formatters:
+    simple:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    verbose:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+  loggers:
+    root:
+      level: DEBUG
+      handlers: [console]
+loop_time: 5
+mqtt:
+  topic_prefix: "hemon/sensor"
+  #qos: 0
+  host: "broker.example.host"
+  port: 1883
+  username: "guesswho"
+  password: "guesswhat"
+melcloud:
+  username: "user"
+  password: "secret"
+properties:
+  - name: "OperationMode"
+    key: "opmode"
+  - name: "OutdoorTemperature"
+    key: "T-out"

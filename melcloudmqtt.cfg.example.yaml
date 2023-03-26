@@ -1,0 +1,53 @@
+# example configuration
+
+# Python logging config in YAML string
+logging_config: |
+  version: 1
+  disable_existing_loggers: no
+  formatters:
+    simple:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    verbose:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+    file:
+      class: logging.handlers.TimedRotatingFileHandler
+      level: DEBUG
+      formatter: verbose
+      when: D
+      backupCount: 1
+      filename: ./melcloudmqtt.log
+      encoding: utf8
+    syslog:
+      class: logging.handlers.SysLogHandler
+      level: DEBUG
+      formatter: verbose
+      address: ["localhost", 514]
+  loggers:
+    root:
+      level: DEBUG
+      handlers: [console]
+# loop time - how long you want run the app: -1 infinite, 0 process in/out traffic once, 1+ run for (roughly) N seconds
+loop_time: 0
+mqtt:
+  # MQTT topic for publish, publish each device under this
+  topic_prefix: "hemon/sensor"
+  # Optional: MQTT Quality of Service (QoS). Default is 0.
+  #qos: 0
+  host: "broker.example.host"
+  port: 1883
+  username: "guesswho"
+  password: "guesswhat"
+melcloud:
+  username: "user"
+  password: "topsecret"
+properties:         # List of known properties, add to MQTT message with key when name match to device parameter
+  - name: "OperationMode"
+    key: "opmode"
+  - name: "OutdoorTemperature"
+    key: "T-out"

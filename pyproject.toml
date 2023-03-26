@@ -1,0 +1,91 @@
+[project]
+name = "melcloud-mqtt"
+description = "MELCloud device status to MQTT reader & publisher"
+dynamic = ["version"]
+authors = [
+    { name = "Petri Ahola", email = "petri.ahola@hukassa.com" }
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "aiohttp",
+    "apscheduler",
+    "mashumaro[yaml]",
+    "paho-mqtt",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "build",
+    "colorama",
+    "flake8",
+    "isort",
+    "mypy"
+]
+tests = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock"
+]
+
+[project.urls]
+repository = "https://github.com/petromap/melcloud-mqtt.git"
+
+[build-system]
+requires = ["setuptools >= 62"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "melcloudmqtt.__version__"}
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+#log_cli = true
+#log_cli_level = "DEBUG"
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.black]
+line-length = 127
+diff = true
+color = true
+
+[tool.isort]
+profile = "black"
+honor_noqa = true
+color_output = true
+src_paths = ["src", "tests"]
+skip_gitignore = true
+
+[tool.mypy]
+disallow_untyped_defs = true
+disallow_any_unimported = true
+no_implicit_optional = true
+
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+
+mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = "C0103,C0114"
+
+[tool.pylint.'FORMAT']
+max-line-length = 127
+
+[tool.pylint.'SIMILARITIES']
+ignore-comments = true
+ignore-docstrings = true
