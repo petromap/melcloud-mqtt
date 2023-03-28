@@ -6,7 +6,7 @@ MELCloud.
 Then single MQTT message per device will be build and published with values 
 of all properties listed in configuration.
 Message format is fit to be handled by 
-[this software](github.com/petromap/mqlcloud-mqtt).
+[this software](https://github.com/petromap/mqlcloud-mqtt).
 
 ## Install and run the package
 
@@ -41,4 +41,7 @@ pip install .[dev]
 pip install .[tests]
 
 pytest
+
+# bake the wheel
+python -m build
 ```
